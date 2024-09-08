@@ -20,6 +20,35 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.media-group,
+.media-scroller {
+  gap: 0.25rem;
+  display: grid;
+  grid-auto-flow: column;
+}
+
+.media-scroller {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  grid-auto-columns: 100%;
+}
+
+.media-group {
+  grid-auto-columns: 1fr;
+}
+
+
+.media-element{
+  border-radius: 0.25rem;
+  overflow: hidden;
+}
+
+.media-element > img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
