@@ -4,8 +4,8 @@ import { toast } from 'sonner';
 const axiosInstance = axios.create({
   baseURL: 'https://moviesdatabase.p.rapidapi.com',
   headers: {
-    'x-rapidapi-key': 'e98f5c4291mshd24802361e80c71p1d283djsn1e236696fad6',
-    'x-rapidapi-host': 'moviesdatabase.p.rapidapi.com',
+    'x-rapidapi-key': '',
+    'x-rapidapi-host': '',
     'Content-Type': 'application/json',
   },
 });

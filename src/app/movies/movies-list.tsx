@@ -28,6 +28,7 @@ const MoviesList: FC<MoviesListProps> = ({ page }) => {
         </Slider.SliderGroup>
       ))}
     </Slider>
+    
   );
 };
 
