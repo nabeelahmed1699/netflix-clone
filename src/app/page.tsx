@@ -1,15 +1,12 @@
-'use client';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-
 // @project
-import Movies from './movies';
+import Movies from '../components/movies';
+import Hero from '@/components/hero';
 
-
-const queryClient = new QueryClient();
 export default function Home() {
   return (
-    <QueryClientProvider client={queryClient}>
+    <>
+      <Hero />
       <Movies />
-    </QueryClientProvider>
+    </>
   );
 }

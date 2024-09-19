@@ -3,6 +3,7 @@
 import React, { FC, useState } from 'react';
 import Image, { StaticImageData } from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
+import Link from 'next/link';
 
 // assets
 import user1 from '@/assets/avatars/user-1.jpg';
@@ -68,6 +69,7 @@ const ProfileDropdown: FC<ProfileDropdownProps> = () => {
                   <span className='ml-2 group-hover:underline'>{profile.name}</span>
                 </div>
               ))}
+              <Link href={'sign-in'} className='inline-flex items-center justify-center w-full border-t border-white py-3 hover:underline'>sign out of netflix</Link>
             </motion.div>
           </>
         )}
