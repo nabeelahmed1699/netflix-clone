@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { toast } from 'sonner';
 
+// 'https://moviesdatabase.p.rapidapi.com'
 const axiosInstance = axios.create({
-  baseURL: 'https://moviesdatabase.p.rapidapi.com',
+  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
   headers: {
-    'x-rapidapi-key': '',
-    'x-rapidapi-host': '',
-    'Content-Type': 'application/json',
+    'x-rapidapi-key': process.env.NEXT_PUBLIC_MY_API,
+    'x-rapidapi-host': 'moviesdatabase.p.rapidapi.com',
   },
 });
 
