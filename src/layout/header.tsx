@@ -38,7 +38,7 @@ const Header = () => {
 
   return (
     <header
-      className={`relative flex justify-center flex-col min-h-screen bg-cover bg-center transition-all duration-300`}
+      className={`relative flex justify-center flex-col min-h-screen bg-cover bg-center transition-all duration-300 pt-10 bg-gradient-to-b from-black to-transparent`}
       style={{ backgroundImage: `url(${coverImage.src})` }}
     >
       <div
@@ -92,7 +92,7 @@ const Header = () => {
               <IconPlayerPlayFilled className='mr-2 h-8 w-8' />
               <span>Play</span>
             </Button>
-            <Button size='lg' className='text-xl py-6 px-5 min-w-40 bg-[rgba(109, 109, 110, 0.7)] hover:bg-[rgba(109, 109, 110, 0.4)]'>
+            <Button size='lg' className='text-xl py-6 px-5 min-w-40 bg-slate-500 hover:bg-slate-600'>
               <IconAlertCircle className='mr-2 h-8 w-8' />
               <span>More Info</span>
             </Button>

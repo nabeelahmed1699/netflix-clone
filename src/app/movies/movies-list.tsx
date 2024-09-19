@@ -49,21 +49,20 @@ const MoviesList: FC<MoviesListProps> = ({ page }) => {
     );
 
   const customLeftArrow = (
-      <button className='opacity-0 group-hover:opacity-100 h-full text-white bg-white/35 rounded-sm z-[1000] flex items-center justify-center w-9 absolute left-0 transition-opacity'>
-        <IconChevronLeft />
-      </button>
+    <button className='opacity-0 group-hover:opacity-100 h-full text-white bg-white/35 rounded-sm z-[1000] flex items-center justify-center w-9 absolute left-0 transition-opacity'>
+      <IconChevronLeft />
+    </button>
   );
   const customRightArrow = (
-      <button className='opacity-0 group-hover:opacity-100 h-full text-white bg-white/35 rounded-sm z-[1000] flex items-center justify-center w-9 absolute right-0 transition-opacity'>
-        <IconChevronRight />
-      </button>
+    <button className='opacity-0 group-hover:opacity-100 h-full text-white bg-white/35 rounded-sm z-[1000] flex items-center justify-center w-9 absolute right-0 transition-opacity'>
+      <IconChevronRight />
+    </button>
   );
   return (
     <Carousel
       responsive={responsive}
       containerClass='!overflow-visible group'
       itemClass='!overflow-visible'
-      
       customLeftArrow={customLeftArrow}
       customRightArrow={customRightArrow}
       draggable
@@ -79,8 +78,8 @@ const MoviesList: FC<MoviesListProps> = ({ page }) => {
               return (
                 <motion.div
                   initial={{ scale: 1 }}
-                  whileHover={{ scale: 1.1, boxShadow: '0px 10px 20px rgba(0, 0, 0, 0.5)', zIndex:20 }}
-                  className='media-element h-36 bg-stone-400 rounded-md relative overflow-visible'
+                  whileHover={{ scale: 1.1, zIndex: 20 }}
+                  className='media-element h-36 bg-stone-400 rounded-md'
                   key={movie.id}
                   onHoverStart={() => setHoveredMovieId(movie.id)}
                   onHoverEnd={() => setHoveredMovieId(null)}
