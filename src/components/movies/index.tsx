@@ -1,18 +1,21 @@
+'use client';
+
+// @project
+import useMovies from '@/hooks/useMovies';
 import MoviesList from './movies-list';
 
 const Movies = () => {
-  function createArray(length: number, startValue = 0) {
-    if (length < 0) {
-      throw new Error('Length must be a non-negative number');
-    }
-    return Array.from({ length }, (_, index) => startValue + index);
+  const { data, isPending } = useMovies();
+
+  if (isPending) {
+    return 'Loading...';
   }
-  console.log(createArray(10));
+
   return (
     <div className='flex flex-col gap-4'>
-      {createArray(10).map((page) => (
-        <MoviesList key={page} page={page + 1} />
-      ))}
+      {data?.map((list, index) => {
+        return <MoviesList list={list} key={list[0][0].id + index} />;
+      })}
     </div>
   );
 };

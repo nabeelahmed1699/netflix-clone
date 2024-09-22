@@ -4,10 +4,10 @@ import { toast } from 'sonner';
 // 'https://moviesdatabase.p.rapidapi.com'
 const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
-  headers: {
-    'x-rapidapi-key': process.env.NEXT_PUBLIC_MY_API,
-    'x-rapidapi-host': 'moviesdatabase.p.rapidapi.com',
-  },
+  // headers: {
+  //   'x-rapidapi-key': process.env.NEXT_PUBLIC_MY_API,
+  //   'x-rapidapi-host': 'moviesdatabase.p.rapidapi.com',
+  // },
 });
 
 axiosInstance.interceptors.request.use(

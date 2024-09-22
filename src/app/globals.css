@@ -38,18 +38,6 @@ body {
   grid-auto-columns: 1fr;
 }
 
-
-.media-element{
-  border-radius: 0.25rem;
-  overflow: hidden;
-}
-
-.media-element > img {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  object-fit: cover;
-}
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;

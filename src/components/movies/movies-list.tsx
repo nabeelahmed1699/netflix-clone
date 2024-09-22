@@ -5,13 +5,13 @@ import 'react-multi-carousel/lib/styles.css';
 import { AnimatePresence, motion } from 'framer-motion';
 
 // @project
-import useMovies from '@/hooks/useMovies';
+import Movie from '@/types/movie';
 
 // icons
 import { IconChevronRight, IconChevronLeft } from '@tabler/icons-react';
 
 interface MoviesListProps {
-  page: number;
+  list: Movie[][];
 }
 
 const responsive = {
@@ -33,74 +33,62 @@ const responsive = {
   },
 };
 
-const MoviesList: FC<MoviesListProps> = ({ page }) => {
-  const { data, isPending } = useMovies(page);
-  const [hoveredMovieId, setHoveredMovieId] = useState<string | null>(null);
-
-  if (isPending)
-    return (
-      <div className='grid grid-cols-6 gap-2'>
-        {[1, 2, 3, 4, 5, 6].map((item) => (
-          <div key={item} className='w-full max-w-sm mx-auto'>
-            <div className='h-40 bg-gray-200 animate-pulse rounded-lg shadow-md'></div>
-          </div>
-        ))}
-      </div>
-    );
+const MoviesList: FC<MoviesListProps> = ({ list }) => {
+  const [hoveredMovieId, setHoveredMovieId] = useState<number | null>(null);
 
   const customLeftArrow = (
-    <button className='opacity-0 group-hover:opacity-100 h-full text-white bg-white/35 rounded-sm z-[1000] flex items-center justify-center w-9 absolute left-0 transition-opacity'>
-      <IconChevronLeft />
+    <button className='opacity-0 group-hover:opacity-100 h-full text-white bg-black/35 rounded-sm z-[1000] flex items-center justify-center w-9 absolute left-0 transition-opacity group'>
+      <IconChevronLeft className='group-hover:scale-110' />
     </button>
   );
   const customRightArrow = (
-    <button className='opacity-0 group-hover:opacity-100 h-full text-white bg-white/35 rounded-sm z-[1000] flex items-center justify-center w-9 absolute right-0 transition-opacity'>
-      <IconChevronRight />
+    <button className='opacity-0 group-hover:opacity-100 h-full text-white bg-black/35 rounded-sm z-[1000] flex items-center justify-center w-9 absolute right-0 transition-opacity group'>
+      <IconChevronRight className='group-hover:scale-110' />
     </button>
   );
   return (
     <Carousel
       responsive={responsive}
-      containerClass='!overflow-visible group'
+      containerClass='!overflow-visible group z-10'
       itemClass='!overflow-visible'
       customLeftArrow={customLeftArrow}
       customRightArrow={customRightArrow}
       draggable
       swipeable
     >
-      {data?.map((group) => {
+      {list.map((group, index) => {
         return (
-          <div className='media-group relative' key={group[0]._id}>
+          <div key={group[0].id + index} className='grid lg:grid-flow-col media-group z-10'>
             {group.map((movie) => {
-              const imageUrl = movie.primaryImage?.url || '/path-to-default-image.png'; // Set fallback image path
-              const altText = movie.primaryImage?.caption.plainText || movie.originalTitleText.text;
-
+              const imageUrl = movie.poster;
+              const altText = movie.title;
               return (
-                <motion.div
-                  initial={{ scale: 1 }}
-                  whileHover={{ scale: 1.1, zIndex: 20 }}
-                  className='media-element h-36 bg-stone-400 rounded-md'
-                  key={movie.id}
-                  onHoverStart={() => setHoveredMovieId(movie.id)}
-                  onHoverEnd={() => setHoveredMovieId(null)}
-                >
-                  <img src={imageUrl} alt={altText} className='max-w-full object-contain' loading='lazy' />
-
-                  <h3 className='sr-only'>{movie.originalTitleText.text}</h3>
-                  <AnimatePresence>
-                    {hoveredMovieId === movie.id && (
-                      <motion.div
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: 'auto', opacity: 1, transition: { type: 'spring', bounce: 0.3, opacity: { delay: 0.03 } } }}
-                        exit={{ height: 0, opacity: 0, transition: { duration: 0.2 } }}
-                      >
-                        <div className='flex'>4 action buttons</div>
-                        <div>infos</div>
-                        <div>genres</div>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
+                <div key={movie.id} className='relative'>
+                  <motion.div
+                    initial={{ scale: 1 }}
+                    whileHover={{ scale: 1.2, zIndex: 100 }}
+                    className='relative z-10 min-h-36 bg-stone-400 rounded-md cursor-pointer'
+                    onHoverStart={() => setHoveredMovieId(movie.id)}
+                    onHoverEnd={() => setHoveredMovieId(null)}
+                  >
+                    <img src={imageUrl} alt={altText} className='max-w-full object-cover aspect-video w-full' loading='lazy' />
+                    <h3 className='sr-only'>{movie.title}</h3>
+                    <AnimatePresence>
+                      {hoveredMovieId === movie.id && (
+                        <motion.div
+                          className='absolute z-20 bottom-0 bg-black/75 w-full'
+                          initial={{ height: 0, opacity: 0 }}
+                          animate={{ height: 'auto', opacity: 1, transition: { type: 'spring', bounce: 0.3, opacity: { delay: 0.03 } } }}
+                          exit={{ height: 0, opacity: 0, transition: { duration: 0.2 } }}
+                        >
+                          <div className='flex min-h-24'>4 action buttons</div>
+                          <div>infos</div>
+                          <div>genres</div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </motion.div>
+                </div>
               );
             })}
           </div>
