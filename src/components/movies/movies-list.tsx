@@ -1,5 +1,5 @@
 'use client';
-import { FC, useState } from 'react';
+import { FC, ReactNode, useState } from 'react';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -8,7 +8,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import Movie from '@/types/movie';
 
 // icons
-import { IconChevronRight, IconChevronLeft } from '@tabler/icons-react';
+import { IconChevronRight, IconChevronLeft, IconChevronDown } from '@tabler/icons-react';
+import { IconPlayerPlayFilled, IconPlus, IconThumbUp } from '@tabler/icons-react';
 
 interface MoviesListProps {
   list: Movie[][];
@@ -67,7 +68,7 @@ const MoviesList: FC<MoviesListProps> = ({ list }) => {
                   <motion.div
                     initial={{ scale: 1 }}
                     whileHover={{ scale: 1.2, zIndex: 100 }}
-                    className='relative z-10 min-h-36 bg-stone-400 rounded-md cursor-pointer'
+                    className='relative z-10 min-h-36 bg-stone-400 rounded-md overflow-hidden cursor-pointer'
                     onHoverStart={() => setHoveredMovieId(movie.id)}
                     onHoverEnd={() => setHoveredMovieId(null)}
                   >
@@ -76,14 +77,25 @@ const MoviesList: FC<MoviesListProps> = ({ list }) => {
                     <AnimatePresence>
                       {hoveredMovieId === movie.id && (
                         <motion.div
-                          className='absolute z-20 bottom-0 bg-black/75 w-full'
+                          className='absolute z-20 bottom-0 bg-black/75 w-full flex justify-between items-center p-2'
                           initial={{ height: 0, opacity: 0 }}
                           animate={{ height: 'auto', opacity: 1, transition: { type: 'spring', bounce: 0.3, opacity: { delay: 0.03 } } }}
                           exit={{ height: 0, opacity: 0, transition: { duration: 0.2 } }}
                         >
-                          <div className='flex min-h-24'>4 action buttons</div>
-                          <div>infos</div>
-                          <div>genres</div>
+                          <div className='flex items-center h-full min-h-36 space-x-1'>
+                            <IconButton>
+                              <IconPlayerPlayFilled />
+                            </IconButton>
+                            <IconButton>
+                              <IconPlus />
+                            </IconButton>
+                            <IconButton>
+                              <IconThumbUp />
+                            </IconButton>
+                          </div>
+                          <IconButton>
+                            <IconChevronDown />
+                          </IconButton>
                         </motion.div>
                       )}
                     </AnimatePresence>
@@ -99,3 +111,15 @@ const MoviesList: FC<MoviesListProps> = ({ list }) => {
 };
 
 export default MoviesList;
+
+type IconButtonProps = {
+  children: ReactNode;
+};
+
+const IconButton: FC<IconButtonProps> = ({ children }) => {
+  return (
+    <button className='inline-flex justify-center items-center rounded-full aspect-square p-1 border border-white text-white bg-transparent w-6 h-6 hover:bg-white hover:text-black transition-colors'>
+      {children}
+    </button>
+  );
+};
